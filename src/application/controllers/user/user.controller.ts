@@ -8,11 +8,18 @@ import {
   ParseUUIDPipe,
   Patch,
   Post,
+  // UsePipes,
+  // ValidationPipe,
 } from '@nestjs/common';
-import { UserService } from '../../services/user/user.service';
-import UserInterface from '../../services/user/user.service';
+import {
+  CreateUserDTO,
+  UpdateUserDTO,
+  UserService,
+} from '../../services/user/user.service';
+import { User } from '../../services/user/user.service';
 
 @Controller('user')
+// @UsePipes(ValidationPipe)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -23,23 +30,26 @@ export class UserController {
 
   @Get(':id')
   getUser(@Param('id', ParseUUIDPipe) id: string) {
-    const element: UserInterface = this.userService.findOneById(id);
+    const element: User = this.userService.findOneById(id);
     if (!element) throw new NotFoundException(`El id: ${id} no fue encontrado`);
     return element;
   }
 
   @Post()
-  createUser(@Body() payload: UserInterface) {
-    return payload;
+  createUser(@Body() payload: CreateUserDTO) {
+    return this.userService.createUser(payload);
   }
 
   @Patch(':id')
-  updateUser(@Body() payload: UserInterface, id: string) {
-    return { payload, id };
+  updateUser(
+    @Body() payload: UpdateUserDTO,
+    @Param('id', ParseUUIDPipe) id: string,
+  ) {
+    return this.userService.updateUser(id, payload);
   }
 
   @Delete(':id')
   deleteUser(@Param('id', ParseUUIDPipe) id: string) {
-    return { id, method: 'delete' };
+    return this.userService.deleteUser(id);
   }
 }
