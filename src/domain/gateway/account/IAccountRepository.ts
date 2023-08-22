@@ -2,11 +2,13 @@ import CreateAccountRequestDto from '../../entities/account/CreateAccountRequest
 import Account from '../../entities/account/Account';
 import OperationAccountRequestDto from '../../entities/account/OperationAccountRequestDto';
 
-export default interface IAccountRepository {
-  createAccount(account: CreateAccountRequestDto): Promise<Account>;
-  getAccountByUserId(idUser: string): Promise<Account | null>;
-  getAccountByAccountNumber(accountNumber: string): Promise<Account | null>;
-  updateBalanceAccount(
+export abstract class IAccountRepository {
+  abstract createAccount(account: CreateAccountRequestDto): Promise<Account>;
+  abstract getAccountByUserId(idUser: string): Promise<Account | null>;
+  abstract getAccountByAccountNumber(
+    accountNumber: string,
+  ): Promise<Account | null>;
+  abstract updateBalanceAccount(
     data: OperationAccountRequestDto,
   ): Promise<Account | null>;
 }
