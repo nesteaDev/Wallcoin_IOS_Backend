@@ -22,9 +22,9 @@ export class UserService implements IUserRepository {
         idUser: savedUser.idUser,
         name: savedUser.name,
         email: savedUser.email,
-        urlImage: savedUser.url,
+        urlImage: savedUser.urlImage,
       };
-      return userAdd; // Devolver el usuario guardado
+      return userAdd;
     } catch (error) {
       console.log(error);
       throw new InternalServerErrorException('Error creating user');

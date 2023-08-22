@@ -23,6 +23,10 @@ import { DomainModule } from '../domain/domain.module';
     { provide: IUserRepository, useClass: UserService },
     { provide: ITransactionRepository, useClass: TransactionService },
   ],
-  exports: [],
+  exports: [
+    { provide: IAccountRepository, useClass: AccountService },
+    { provide: IUserRepository, useClass: UserService },
+    { provide: ITransactionRepository, useClass: TransactionService },
+  ],
 })
 export class InfrastructureModule {}

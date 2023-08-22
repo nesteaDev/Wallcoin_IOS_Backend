@@ -5,15 +5,13 @@ import {
   Param,
   ParseUUIDPipe,
   Post,
-  // UsePipes,
-  // ValidationPipe,
 } from '@nestjs/common';
-import { UserService } from '../../../infrastructure/persistence/adapters/user/user.service';
 import CreateUserRequestDto from 'src/domain/entities/user/CreateUserRequestDto';
+import { IUserRepository } from 'src/domain/gateway/user/IUserRepository';
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: IUserRepository) {}
 
   @Get()
   getAllUsers() {

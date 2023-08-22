@@ -30,15 +30,19 @@ export default class UserEntity {
   })
   email: string;
 
-  @Column('uuid', { name: 'idAccount' })
-  idAccount: string;
+  @Column({
+    name: 'idAccount',
+    type: 'uuid',
+    nullable: true,
+  })
+  idAccount?: string;
 
   @Column({
     name: 'urlImage',
-    type: 'varchar',
-    length: 255,
+    type: 'text',
+    nullable: true,
   })
-  url: string;
+  urlImage: string;
 
   @OneToOne(() => Account, (account) => account.user)
   @JoinColumn({ name: 'idAccount', referencedColumnName: 'idAccount' })
