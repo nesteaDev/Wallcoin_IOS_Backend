@@ -1,9 +1,11 @@
 import Transaction from '../../entities/transaction/transaction';
 
-export default interface ITransactionRepository {
-  createTransaction(transaction: Transaction): Promise<Transaction>;
-  getTransactionsByUserId(idUser: string): Promise<Transaction[] | null>;
-  getTransactionsByDestinationUserId(
+export abstract class ITransactionRepository {
+  abstract createTransaction(transaction: Transaction): Promise<Transaction>;
+  abstract getTransactionsByUserId(
+    idUser: string,
+  ): Promise<Transaction[] | null>;
+  abstract getTransactionsByDestinationUserId(
     destinationUser: string,
   ): Promise<Transaction[] | null>;
 }
