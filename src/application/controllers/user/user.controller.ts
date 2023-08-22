@@ -1,55 +1,32 @@
 import {
   Body,
   Controller,
-  Delete,
   Get,
-  NotFoundException,
   Param,
   ParseUUIDPipe,
-  Patch,
   Post,
   // UsePipes,
   // ValidationPipe,
 } from '@nestjs/common';
-import {
-  CreateUserDTO,
-  UpdateUserDTO,
-  UserService,
-} from '../../services/user/user.service';
-import { User } from '../../services/user/user.service';
+import { UserService } from '../../../infrastructure/persistence/adapters/user/user.service';
+import CreateUserRequestDto from 'src/domain/entities/user/CreateUserRequestDto';
 
 @Controller('user')
-// @UsePipes(ValidationPipe)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get()
   getAllUsers() {
-    return this.userService.findAll();
+    return this.userService.getAllUsers();
   }
 
   @Get(':id')
   getUser(@Param('id', ParseUUIDPipe) id: string) {
-    const element: User = this.userService.findOneById(id);
-    if (!element) throw new NotFoundException(`El id: ${id} no fue encontrado`);
-    return element;
+    return this.userService.getUserById(id);
   }
 
   @Post()
-  createUser(@Body() payload: CreateUserDTO) {
+  createUser(@Body() payload: CreateUserRequestDto) {
     return this.userService.createUser(payload);
-  }
-
-  @Patch(':id')
-  updateUser(
-    @Body() payload: UpdateUserDTO,
-    @Param('id', ParseUUIDPipe) id: string,
-  ) {
-    return this.userService.updateUser(id, payload);
-  }
-
-  @Delete(':id')
-  deleteUser(@Param('id', ParseUUIDPipe) id: string) {
-    return this.userService.deleteUser(id);
   }
 }
