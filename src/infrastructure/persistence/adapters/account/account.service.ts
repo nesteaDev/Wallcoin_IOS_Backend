@@ -91,6 +91,7 @@ export class AccountService implements IAccountRepository {
       // Realizar la operación de depósito
       accountFind.balance += data.amount;
       accountFind.updatedAt = new Date();
+      await this.accountRepository.save(accountFind);
     } else if (data.transactionType === TransactionType.TRANSFER) {
       if (accountFind.balance < data.amount)
         throw new BadRequestException(
@@ -105,7 +106,8 @@ export class AccountService implements IAccountRepository {
       accountFind.updatedAt = new Date();
       accountDestinationUser.balance += data.amount;
       accountDestinationUser.updatedAt = new Date();
-      // await this.accountRepository.save(accountFind);
+      await this.accountRepository.save(accountFind);
+      await this.accountRepository.save(accountDestinationUser);
     } else if (data.transactionType === TransactionType.PAYMENT_BILL) {
       if (accountFind.balance < data.amount)
         throw new BadRequestException(
@@ -118,13 +120,14 @@ export class AccountService implements IAccountRepository {
       // Realizar la operación de pago de factura
       accountFind.updatedAt = new Date();
       accountFind.balance -= data.amount;
+      await this.accountRepository.save(accountFind);
       throw new Error('Method not implemented');
     } else {
       throw new Error('Invalid transaction type');
     }
-    const accountFinal = await this.accountRepository.save(accountFind);
-    await this.accountRepository.save(accountDestinationUser);
-
+    const accountFinal = await this.accountRepository.findOne({
+      where: { idAccount: accountFind.idAccount },
+    });
     const transaction: CreateTransactionRequestDto = {
       idUser: data.idUser,
       idDestinationUser: data.destinationUser,
