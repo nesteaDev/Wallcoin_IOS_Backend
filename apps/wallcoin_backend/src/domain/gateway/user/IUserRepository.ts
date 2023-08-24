@@ -1,4 +1,4 @@
-import UpdateUserRequestDto from 'src/domain/entities/user/UpdateUserRequestDto';
+import UpdateUserRequestDto from '../../entities/user/UpdateUserRequestDto';
 import CreateUserRequestDto from '../../entities/user/CreateUserRequestDto';
 import User from '../../entities/user/User';
 

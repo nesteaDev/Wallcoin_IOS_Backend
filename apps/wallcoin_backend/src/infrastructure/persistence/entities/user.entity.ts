@@ -1,5 +1,4 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-// import Account from './account.entity';
 import AccountEntity from './account.entity';
 
 @Entity({

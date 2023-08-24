@@ -12,7 +12,7 @@ import UserEntity from '../../entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import AccountEntity from '../../entities/account.entity';
-import UpdateUserRequestDto from 'src/domain/entities/user/UpdateUserRequestDto';
+import UpdateUserRequestDto from '../../../../domain/entities/user/UpdateUserRequestDto';
 import { TransactionService } from '../transaction/transaction.service';
 import { AccountService } from '../account/account.service';
 
@@ -52,13 +52,15 @@ export class UserService implements IUserRepository {
     console.log('updateUserAccount ', idUser, data);
     throw new Error('Method not implemented.');
   }
-  getAllUsers(): Promise<User[]> {
-    throw new Error('Method not implemented.');
+
+  async getAllUsers(): Promise<User[]> {
+    const userList = await this.userRepository.find();
+    return userList as User[];
   }
 
   async getUserById(idUser: string): Promise<User> {
     console.log('getUserById ', idUser);
-    const userFind = await this.userRepository.findOneOrFail({
+    const userFind = await this.userRepository.findOne({
       where: { idUser: idUser },
     });
     const accounts = await this.accountService.getAccountByUserId(idUser);

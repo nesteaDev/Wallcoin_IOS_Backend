@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import CreateUserRequestDto from '../../../domain/entities/user/CreateUserRequestDto';
 import { IUserRepository } from '../../../domain/gateway/user/IUserRepository';
-import UpdateUserRequestDto from 'src/domain/entities/user/UpdateUserRequestDto';
+import UpdateUserRequestDto from '../../../domain/entities/user/UpdateUserRequestDto';
 
 @Controller('user')
 export class UserController {

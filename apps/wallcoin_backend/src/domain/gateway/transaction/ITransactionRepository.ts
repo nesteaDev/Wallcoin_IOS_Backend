@@ -1,4 +1,4 @@
-import CreateTransactionRequestDto from 'src/domain/entities/transaction/CreateTransactionRequestDto';
+import CreateTransactionRequestDto from '../../entities/transaction/CreateTransactionRequestDto';
 import Transaction from '../../entities/transaction/transaction';
 import PaginationTransactionDto from '../../entities/transaction/PaginationTransactionDto';
 
