@@ -10,6 +10,7 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     }),
   );
+  app.setGlobalPrefix('api');
   await app.listen(3000);
   console.log(`Server is running on port ${await app.getUrl()}`);
 }
