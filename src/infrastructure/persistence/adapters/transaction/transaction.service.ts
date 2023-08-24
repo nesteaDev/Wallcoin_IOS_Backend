@@ -38,6 +38,7 @@ export class TransactionService implements ITransactionRepository {
     try {
       const transactions = await this.transactionRepository.find({
         where: [{ idUser }, { idDestinationUser: idUser }],
+        order: { createdAt: 'DESC' },
       });
       return transactions as Transaction[];
     } catch (error) {
@@ -55,6 +56,7 @@ export class TransactionService implements ITransactionRepository {
         take: limit,
         skip: offSet,
         where: [{ idUser }, { idDestinationUser: idUser }],
+        order: { createdAt: 'DESC' },
       });
       return transactions as Transaction[];
     } catch (error) {
