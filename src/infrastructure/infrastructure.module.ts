@@ -9,19 +9,22 @@ import { TransactionService } from './persistence/adapters/transaction/transacti
 
 import { TypeOrmModule } from '@nestjs/typeorm';
 import UserEntity from './persistence/entities/user.entity';
-import Account from './persistence/entities/account.entity';
-import Transaction from './persistence/entities/transaction.entity';
+import AccountEntity from './persistence/entities/account.entity';
+import TransactionEntity from './persistence/entities/transaction.entity';
 import { DomainModule } from '../domain/domain.module';
 
 @Module({
   imports: [
     DomainModule,
-    TypeOrmModule.forFeature([UserEntity, Account, Transaction]),
+    TypeOrmModule.forFeature([UserEntity, AccountEntity, TransactionEntity]),
   ],
   providers: [
     { provide: IAccountRepository, useClass: AccountService },
     { provide: IUserRepository, useClass: UserService },
     { provide: ITransactionRepository, useClass: TransactionService },
+    TransactionService,
+    UserService,
+    AccountService,
   ],
   exports: [
     { provide: IAccountRepository, useClass: AccountService },
