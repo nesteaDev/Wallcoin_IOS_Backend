@@ -1,8 +1,8 @@
 export default class Transaction {
   idTransaction: string;
   idUser: string;
-  destinationUser: string;
+  idDestinationUser: string;
   amount: number;
-  createdAt: Date;
+  createdAt?: Date;
   transactionType: string;
 }

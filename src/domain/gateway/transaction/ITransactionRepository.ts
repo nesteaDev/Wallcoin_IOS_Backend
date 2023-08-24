@@ -1,11 +1,15 @@
+import CreateTransactionRequestDto from 'src/domain/entities/transaction/CreateTransactionRequestDto';
 import Transaction from '../../entities/transaction/transaction';
+import PaginationTransactionDto from '../../entities/transaction/PaginationTransactionDto';
 
 export abstract class ITransactionRepository {
-  abstract createTransaction(transaction: Transaction): Promise<Transaction>;
+  abstract createTransaction(
+    transaction: CreateTransactionRequestDto,
+  ): Promise<Transaction>;
   abstract getTransactionsByUserId(
     idUser: string,
   ): Promise<Transaction[] | null>;
-  abstract getTransactionsByDestinationUserId(
-    destinationUser: string,
+  abstract getTransactionsByUserIdPagination(
+    paginationTransactionDto: PaginationTransactionDto,
   ): Promise<Transaction[] | null>;
 }
