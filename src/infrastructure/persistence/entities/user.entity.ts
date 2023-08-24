@@ -1,11 +1,6 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import Account from './account.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+// import Account from './account.entity';
+import AccountEntity from './account.entity';
 
 @Entity({
   name: 'user',
@@ -27,15 +22,9 @@ export default class UserEntity {
     name: 'email',
     type: 'varchar',
     length: 100,
+    unique: true,
   })
   email: string;
-
-  @Column({
-    name: 'idAccount',
-    type: 'uuid',
-    nullable: true,
-  })
-  idAccount?: string;
 
   @Column({
     name: 'urlImage',
@@ -44,7 +33,16 @@ export default class UserEntity {
   })
   urlImage: string;
 
-  @OneToOne(() => Account, (account) => account.user)
-  @JoinColumn({ name: 'idAccount', referencedColumnName: 'idAccount' })
-  account: Account;
+  @OneToMany(() => AccountEntity, (account) => account.user, { cascade: true })
+  accounts?: AccountEntity[];
+
+  /**
+   * ? Execute before save
+   **/
+  // @BeforeInsert()
+  // checkAccountInsert() {
+  //   if (!this.idAccount) {
+  //     this.idAccount = '57c82836-d97b-436f-96fe-29ac15d43c05';
+  //   }
+  // }
 }

@@ -1,30 +1,31 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
-export default class Transaction {
+@Entity({
+  name: 'transaction',
+})
+export default class TransactionEntity {
   @PrimaryGeneratedColumn('uuid', {
     name: 'idTransaction',
   })
   idTransaction: string;
 
-  @Column('uuid', { name: 'idUser' })
+  @Column('uuid', { name: 'idUser', unique: false })
   idUser: string;
 
-  @Column('uuid', { name: 'idDestination' })
+  @Column('uuid', { name: 'idDestinationUser', unique: false })
   idDestinationUser: string;
 
   @Column('float', { name: 'amount' })
   amount: number;
 
-  @Column('date', { name: 'createdAtDate' })
+  @Column('date', { name: 'createdAt', nullable: true })
   createdAt: Date;
 
-  @Column('varchar', { name: 'transactionType', length: 255 })
+  @Column('varchar', { name: 'transactionType', unique: false, length: 255 })
   transactionType: string;
 
-  // @JoinColumn({ name: 'idUser', referencedColumnName: 'idUser' })
-  // userOrigin: User;
-
-  // @JoinColumn({ name: 'idDestination', referencedColumnName: 'idUser' })
-  // userDestination: User;
+  //Posible implementación de relación con cuenta
+  // @ManyToOne(() => AccountEntity, (account) => account.transactions)
+  // @JoinColumn({ name: 'idAccount_account', referencedColumnName: 'idAccount' })
+  // account: AccountEntity;
 }

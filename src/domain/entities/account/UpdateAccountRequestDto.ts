@@ -1,28 +1,24 @@
 import {
-  IsDate,
-  IsIn,
-  IsNotEmpty,
-  IsOptional,
   IsString,
-  IsUUID,
+  IsNotEmpty,
+  IsDate,
+  IsOptional,
+  IsIn,
 } from 'class-validator';
 import AccountType from './AccountType';
 
-export default class CreateAccountRequestDto {
-  @IsUUID()
-  @IsOptional()
-  idUser?: string;
+export default class UpdateAccountRequestDto {
   @IsString()
   @IsNotEmpty()
   accountNumber: string;
   @IsString()
   @IsNotEmpty()
   @IsIn([AccountType.PERSONAL, AccountType.BUSINESS])
-  accountType: string;
+  accountType: AccountType;
   @IsDate()
   @IsOptional()
   createdAt?: Date;
-  // @IsArray()
-  // @IsOptional()
-  // transactions?: Transaction[];
+  @IsDate()
+  @IsOptional()
+  updateAt?: Date;
 }
