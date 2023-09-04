@@ -1,8 +1,41 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
-  "sourceRoot": "src",
+  "sourceRoot": "apps/wallcoin_backend/src",
   "compilerOptions": {
-    "deleteOutDir": true
+    "deleteOutDir": true,
+    "webpack": true,
+    "tsConfigPath": "apps/wallcoin_backend/tsconfig.app.json"
+  },
+  "monorepo": true,
+  "root": "apps/wallcoin_backend",
+  "projects": {
+    "wallcoin_backend": {
+      "type": "application",
+      "root": "apps/wallcoin_backend",
+      "entryFile": "main",
+      "sourceRoot": "apps/wallcoin_backend/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/wallcoin_backend/tsconfig.app.json"
+      }
+    },
+    "hub_queue_service": {
+      "type": "application",
+      "root": "apps/hub_queue_service",
+      "entryFile": "main",
+      "sourceRoot": "apps/hub_queue_service/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/hub_queue_service/tsconfig.app.json"
+      }
+    },
+    "hub_queue_talk": {
+      "type": "application",
+      "root": "apps/hub_queue_talk",
+      "entryFile": "main",
+      "sourceRoot": "apps/hub_queue_talk/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/hub_queue_talk/tsconfig.app.json"
+      }
+    }
   }
 }

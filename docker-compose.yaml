@@ -12,3 +12,42 @@ services:
     container_name: wallcoinDb
     volumes:
       - ./postgres:/var/lib/postgresql/data
+
+  # zookeeper:
+  #   image: confluentinc/cp-zookeeper:6.2.0
+  #   hostname: zookeeper
+  #   container_name: zookeeper
+  #   ports:
+  #     - "2181:2181"
+  #   environment:
+  #     ZOOKEEPER_CLIENT_PORT: 2181
+  #     ZOOKEEPER_TICK_TIME: 2000
+  
+  # kafka:
+  #   image: wurstmeister/kafka:latest
+  #   restart: always
+  #   hostname: kafka
+  #   container_name: kafka
+  #   links:
+  #     - zookeeper
+  #   ports:
+  #     - 9091:9091
+  #   environment:
+  #     KAFKA_BROKER_ID: 1
+  #     KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+  #     KAFKA_LISTENERS: INTERNAL://:19091,EXTERNAL://:9091
+  #     KAFKA_ADVERTISED_LISTENERS: INTERNAL://kafka:19091,EXTERNAL://localhost:9091
+  #     KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: INTERNAL:PLAINTEXT,EXTERNAL:PLAINTEXT
+  #     KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+
+  #   # Not found at Docker Hub
+  # kowl:
+  #   image: quay.io/cloudhut/kowl:v1.3.1
+  #   container_name: kowl
+  #   restart: always
+  #   ports: 
+  #     - "8080:8080"
+  #   depends_on:
+  #     - kafka
+  #   environment:
+  #     - KAFKA_BROKERS=kafka:19091
