@@ -11,6 +11,9 @@ import Account from '../account/Account';
 export default class CreateUserRequestDto {
   @IsString()
   @MinLength(5)
+  token: string;
+  @IsString()
+  @MinLength(5)
   @MaxLength(50)
   name: string;
   @MaxLength(50)

@@ -1,6 +1,7 @@
 import UpdateUserRequestDto from '../../entities/user/UpdateUserRequestDto';
 import CreateUserRequestDto from '../../entities/user/CreateUserRequestDto';
 import User from '../../entities/user/User';
+import UserTokenResponseDto from '../../entities/user/UserTokenResponseDto';
 
 export abstract class IUserRepository {
   abstract createUser(user: CreateUserRequestDto): Promise<User>;
@@ -10,5 +11,5 @@ export abstract class IUserRepository {
     idUser: string,
     payload: UpdateUserRequestDto,
   ): Promise<User>;
-  // abstract getUserByAccountNumber(accountNumber: string): Promise<User>;
+  abstract getUserByToken(token: string): Promise<UserTokenResponseDto>;
 }

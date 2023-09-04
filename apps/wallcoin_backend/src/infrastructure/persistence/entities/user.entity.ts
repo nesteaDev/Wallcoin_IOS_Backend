@@ -32,6 +32,12 @@ export default class UserEntity {
   })
   urlImage: string;
 
+  @Column({
+    name: 'token',
+    type: 'text',
+  })
+  token: string;
+
   @OneToMany(() => AccountEntity, (account) => account.user, { cascade: true })
   accounts?: AccountEntity[];
 

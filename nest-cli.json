@@ -27,6 +27,15 @@
       "compilerOptions": {
         "tsConfigPath": "apps/hub_queue_service/tsconfig.app.json"
       }
+    },
+    "hub_queue_talk": {
+      "type": "application",
+      "root": "apps/hub_queue_talk",
+      "entryFile": "main",
+      "sourceRoot": "apps/hub_queue_talk/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/hub_queue_talk/tsconfig.app.json"
+      }
     }
   }
 }

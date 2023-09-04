@@ -15,14 +15,19 @@ import UpdateUserRequestDto from '../../../domain/entities/user/UpdateUserReques
 export class UserController {
   constructor(private readonly userService: IUserRepository) {}
 
-  @Post()
-  createUser(@Body() payload: CreateUserRequestDto) {
-    return this.userService.createUser(payload);
+  @Get()
+  getAllUsers() {
+    return this.userService.getAllUsers();
   }
 
   @Get(':id')
   getUser(@Param('id', ParseUUIDPipe) id: string) {
     return this.userService.getUserById(id);
+  }
+
+  @Get('validate/:token')
+  getUserByToken(@Param('token') token: string) {
+    return this.userService.getUserByToken(token);
   }
 
   @Patch(':id')
@@ -33,8 +38,8 @@ export class UserController {
     return this.userService.updateUserProfile(id, payload);
   }
 
-  @Get()
-  getAllUsers() {
-    return this.userService.getAllUsers();
+  @Post()
+  createUser(@Body() payload: CreateUserRequestDto) {
+    return this.userService.createUser(payload);
   }
 }

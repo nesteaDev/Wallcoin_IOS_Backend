@@ -15,6 +15,7 @@ import AccountEntity from '../../entities/account.entity';
 import UpdateUserRequestDto from '../../../../domain/entities/user/UpdateUserRequestDto';
 import { TransactionService } from '../transaction/transaction.service';
 import { AccountService } from '../account/account.service';
+import UserTokenResponseDto from 'apps/wallcoin_backend/src/domain/entities/user/UserTokenResponseDto';
 
 @Injectable()
 export class UserService implements IUserRepository {
@@ -27,6 +28,19 @@ export class UserService implements IUserRepository {
     @InjectRepository(AccountEntity)
     private readonly accountRepository: Repository<AccountEntity>,
   ) {}
+
+  async getUserByToken(token: string): Promise<UserTokenResponseDto> {
+    const userFind = await this.userRepository.findOne({
+      where: { token: token },
+    });
+    if (!userFind) throw new NotFoundException(`User not found`);
+    const userResponse: UserTokenResponseDto = {
+      idUser: userFind.idUser,
+      email: userFind.email,
+      token: userFind.token,
+    };
+    return userResponse;
+  }
 
   async createUser(userData: CreateUserRequestDto): Promise<User> {
     try {
